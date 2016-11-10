@@ -19828,6 +19828,8 @@
 	var React = __webpack_require__(8);
 	var TodoList = __webpack_require__(167);
 	
+	var AddTodo = __webpack_require__(236);
+	
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
 	
@@ -19851,6 +19853,9 @@
 	      }]
 	    };
 	  },
+	  handleAddTodo: function handleAddTodo(text) {
+	    alert('new todo:' + text);
+	  },
 	
 	  render: function render() {
 	    var todos = this.state.todos;
@@ -19862,7 +19867,8 @@
 	      'div',
 	      null,
 	      'TODO App',
-	      React.createElement(TodoList, { todos: todos })
+	      React.createElement(TodoList, { todos: todos }),
+	      React.createElement(AddTodo, { onAddTodo: this.handleAddTodo })
 	    );
 	  }
 	
@@ -25948,6 +25954,56 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(8);
+	
+	var AddTodo = React.createClass({
+	    displayName: 'AddTodo',
+	
+	
+	    handleSubmit: function handleSubmit(e) {
+	        e.preventDefault();
+	
+	        var onAddTodo = this.props.onAddTodo;
+	
+	
+	        var todoText = this.refs.todoText.value;
+	
+	        if (todoText.length > 0) {
+	            onAddTodo(todoText);
+	
+	            this.refs.todoText.value = '';
+	        } else {
+	            this.refs.todoText.focus();
+	        }
+	    },
+	    render: function render() {
+	
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'form',
+	                { onSubmit: this.handleSubmit },
+	                React.createElement('input', { type: 'text', ref: 'todoText', placeholder: 'what do you need to do' }),
+	                React.createElement(
+	                    'button',
+	                    { className: 'button expanded' },
+	                    'Add Todo'
+	                )
+	            )
+	        );
+	    }
+	
+	});
+	
+	module.exports = AddTodo;
 
 /***/ }
 /******/ ]);
