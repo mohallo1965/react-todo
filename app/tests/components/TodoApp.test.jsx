@@ -15,4 +15,21 @@ describe('TodoApp' ,() =>{
 
    });
 
+   it('Should add todo to the todos state on handleAddToDo',() => {
+
+       var toDoText = 'cut the grass';
+
+       var toDoApp = TestUtils.renderIntoDocument(<TodoApp/>); 
+
+       console.log('Todos before emptying is:'+toDoApp.state.todos.length);
+
+       toDoApp.setState({todos:[]});//empty the the todos
+       toDoApp.handleAddTodo(toDoText);
+
+       //expect(toDoApp.state.todos[toDoApp.state.todos.length-1].text).toBe(toDoText);
+       expect(toDoApp.state.todos[0].text).toBe(toDoText);
+   
+   
+   });
+
 });

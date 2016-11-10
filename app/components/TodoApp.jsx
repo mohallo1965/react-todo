@@ -6,6 +6,8 @@ var TodoList = require('TodoList');
 
 var AddTodo = require('AddTodo');
 
+var uuid = require('node-uuid');
+
 
 
 var TodoApp = React.createClass({
@@ -17,19 +19,19 @@ var TodoApp = React.createClass({
         todos:[
 
           {
-            id:1,
+            id:uuid(),
             text:'walk the dog'
           },
           {
-            id:2,
+            id:uuid(),
             text:'Clean the yard'
           },
           {
-            id:3,
+            id:uuid(),
             text:'Clean the Garage'
           },
           {
-            id:4,
+            id:uuid(),
             text:'shovel the snow'
           }
 
@@ -63,8 +65,21 @@ var TodoApp = React.createClass({
 
            console.log('Adding a new todo:'+todos.length);
            
+           //more primitive way of doing this
+           //this.setState({
+            // todos:this.addTexts(text)
+           //})
+           //Using the spread operator .Take the current todos array of objects and spread it out and add the new object.
            this.setState({
-             todos:this.addTexts(text)
+
+             todos:[
+               ...this.state.todos,
+               {
+                 id:uuid(),
+                 text:text
+               }
+             ]
+
            })
            
         }
