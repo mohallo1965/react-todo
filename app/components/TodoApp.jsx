@@ -41,8 +41,33 @@ var TodoApp = React.createClass({
       }
         
     },
+    addTexts:function(text){
+
+      console.log('adding text');
+
+      var {todos} = this.state;
+      var maxId = todos[todos.length -1].id;
+
+      var todo = {id:maxId+1,text:text};
+
+      todos.push(todo);
+      return todos;
+
+    },
     handleAddTodo:function(text){
         alert('new todo:'+text);
+
+        var {todos} = this.state;
+
+        if(text.length > 0){
+
+           console.log('Adding a new todo:'+todos.length);
+           
+           this.setState({
+             todos:this.addTexts(text)
+           })
+           
+        }
     },
     handleSearch:function(showCompleted,searchText){
 

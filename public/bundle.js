@@ -19834,60 +19834,85 @@
 	var AddTodo = __webpack_require__(170);
 	
 	var TodoApp = React.createClass({
-	    displayName: 'TodoApp',
+	      displayName: 'TodoApp',
 	
 	
-	    getInitialState: function getInitialState() {
+	      getInitialState: function getInitialState() {
 	
-	        return {
+	            return {
 	
-	            todos: [{
-	                id: 1,
-	                text: 'walk the dog'
-	            }, {
-	                id: 2,
-	                text: 'Clean the yard'
-	            }, {
-	                id: 3,
-	                text: 'Clean the Garage'
-	            }, {
-	                id: 4,
-	                text: 'shovel the snow'
-	            }],
-	            showCompleted: false,
-	            searchText: ''
+	                  todos: [{
+	                        id: 1,
+	                        text: 'walk the dog'
+	                  }, {
+	                        id: 2,
+	                        text: 'Clean the yard'
+	                  }, {
+	                        id: 3,
+	                        text: 'Clean the Garage'
+	                  }, {
+	                        id: 4,
+	                        text: 'shovel the snow'
+	                  }],
+	                  showCompleted: false,
+	                  searchText: ''
 	
-	        };
-	    },
-	    handleAddTodo: function handleAddTodo(text) {
-	        alert('new todo:' + text);
-	    },
-	    handleSearch: function handleSearch(showCompleted, searchText) {
+	            };
+	      },
+	      addTexts: function addTexts(text) {
 	
-	        console.log('handling search..' + showCompleted);
+	            console.log('adding text');
 	
-	        this.setState({
-	            showCompleted: showCompleted,
-	            searchText: searchText.toLowerCase()
-	        });
-	    },
+	            var todos = this.state.todos;
 	
-	    render: function render() {
+	            var maxId = todos[todos.length - 1].id;
 	
-	        console.log('Rendering app...');
+	            var todo = { id: maxId + 1, text: text };
 	
-	        var todos = this.state.todos;
+	            todos.push(todo);
+	            return todos;
+	      },
+	      handleAddTodo: function handleAddTodo(text) {
+	            alert('new todo:' + text);
+	
+	            var todos = this.state.todos;
 	
 	
-	        return React.createElement(
-	            'div',
-	            null,
-	            'TODO App',
-	            React.createElement(TodoSearch, { onSearch: this.handleSearch }),
-	            React.createElement(TodoList, { todos: todos }),
-	            React.createElement(AddTodo, { onAddTodo: this.handleAddTodo })
-	        );
-	    }
+	            if (text.length > 0) {
+	
+	                  console.log('Adding a new todo:' + todos.length);
+	
+	                  this.setState({
+	                        todos: this.addTexts(text)
+	                  });
+	            }
+	      },
+	      handleSearch: function handleSearch(showCompleted, searchText) {
+	
+	            console.log('handling search..' + showCompleted);
+	
+	            this.setState({
+	                  showCompleted: showCompleted,
+	                  searchText: searchText.toLowerCase()
+	            });
+	      },
+	
+	      render: function render() {
+	
+	            console.log('Rendering app...');
+	
+	            var todos = this.state.todos;
+	
+	
+	            return React.createElement(
+	                  'div',
+	                  null,
+	                  'TODO App',
+	                  React.createElement(TodoSearch, { onSearch: this.handleSearch }),
+	                  React.createElement(TodoList, { todos: todos }),
+	                  React.createElement(AddTodo, { onAddTodo: this.handleAddTodo })
+	            );
+	      }
 	
 	});
 	
