@@ -1,4 +1,7 @@
 var React = require('react');
+
+var TodoSearch = require('TodoSearch');
+
 var TodoList = require('TodoList');
 
 var AddTodo = require('AddTodo');
@@ -31,23 +34,42 @@ var TodoApp = React.createClass({
           }
 
 
-        ]
+        ],
+        showCompleted:false,
+        searchText:''
+
       }
         
     },
     handleAddTodo:function(text){
         alert('new todo:'+text);
     },
+    handleSearch:function(showCompleted,searchText){
+
+      console.log('handling search..'+showCompleted);
+
+       
+      this.setState({
+           showCompleted:showCompleted,
+           searchText:searchText.toLowerCase()
+      });
+      
+
+    },
 
     render:function(){
 
+       console.log('Rendering app...');
+
        var {todos} = this.state;
 
-       console.log('todos size is:'+todos.length);
-
+       
         return(
           <div>
             TODO App 
+
+            <TodoSearch onSearch={this.handleSearch}/>
+
             <TodoList todos={todos} />
 
             <AddTodo onAddTodo={this.handleAddTodo}/>
