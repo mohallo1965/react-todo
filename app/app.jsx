@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var TodoApp = require('TodoApp');
+
 //Object destructuring
 //var {Route, Router ,IndexRoute ,hashHistory} = require(react-router');
 
@@ -20,6 +22,6 @@ require('style!css!sass!applicationStyles');
 
 
 ReactDOM.render(
-         <p>BoilerPlate3 project</p>,
+         <TodoApp/>,
          document.getElementById('app')
 );
