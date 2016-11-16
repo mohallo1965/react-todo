@@ -19924,15 +19924,19 @@
 	
 	            console.log('Rendering app...');
 	
-	            var todos = this.state.todos;
+	            var _state = this.state,
+	                todos = _state.todos,
+	                showCompleted = _state.showCompleted,
+	                searchText = _state.searchText;
 	
+	            var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
 	
 	            return React.createElement(
 	                  'div',
 	                  null,
 	                  'TODO App',
 	                  React.createElement(TodoSearch, { onSearch: this.handleSearch }),
-	                  React.createElement(TodoList, { todos: todos, onToggle: this.handleToggle }),
+	                  React.createElement(TodoList, { todos: filteredTodos, onToggle: this.handleToggle }),
 	                  React.createElement(AddTodo, { onAddTodo: this.handleAddTodo })
 	            );
 	      }
@@ -24406,27 +24410,62 @@
 	
 	module.exports = {
 	
-	    setTodos: function setTodos(todos) {
+	   setTodos: function setTodos(todos) {
 	
-	        if ($.isArray(todos)) {
+	      if ($.isArray(todos)) {
 	
-	            localStorage.setItem('todos', JSON.stringify(todos));
+	         localStorage.setItem('todos', JSON.stringify(todos));
 	
-	            return todos;
-	        }
-	    },
+	         return todos;
+	      }
+	   },
 	
-	    getTodos: function getTodos() {
-	        debugger;
-	        var stringTodos = localStorage.getItem('todos');
-	        var todos = [];
+	   getTodos: function getTodos() {
 	
-	        try {
-	            todos = JSON.parse(stringTodos);
-	        } catch (e) {}
+	      var stringTodos = localStorage.getItem('todos');
+	      var todos = [];
 	
-	        return $.isArray(todos) ? todos : [];
-	    }
+	      try {
+	         todos = JSON.parse(stringTodos);
+	      } catch (e) {}
+	
+	      return $.isArray(todos) ? todos : [];
+	   },
+	   filterTodos: function filterTodos(todos, showCompleted, searchText) {
+	      var filteredTodos = todos;
+	
+	      //Filter by showcompleted
+	      filteredTodos = filteredTodos.filter(function (todo) {
+	
+	         //Uncompleted Items and if the completed flag is checked show completed items as well  
+	         return !todo.completed || showCompleted;
+	      });
+	
+	      //filter by searchText
+	      console.log('Doing Filter on Search Text');
+	      filteredTodos = filteredTodos.filter(function (todo) {
+	
+	         var text = todo.text.toLowerCase();
+	
+	         //return every item if searchText is null  
+	         if (searchText.length == 0) return true;
+	
+	         if (text.indexOf(searchText) >= 0) {
+	
+	            return true;
+	         } else {
+	            return false;
+	         }
+	      });
+	
+	      //start todos with non completed first
+	      filteredTodos.sort(function (a, b) {
+	
+	         if (a.completed === false && b.completed === true) return -1;else if (a.completed === true && b.completed === false) return 1;else return 0;
+	      });
+	
+	      return filteredTodos;
+	   }
 	};
 
 /***/ },
