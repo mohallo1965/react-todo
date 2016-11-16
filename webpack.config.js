@@ -23,7 +23,7 @@ module.exports = {
   },
   resolve: {
     root: __dirname,
-    modulesDirectories:['node_modules','./app/components'],
+    modulesDirectories:['node_modules','./app/components','./app/api'],
     alias: {
       TodoApp:'app/components/TodoApp.jsx',
       applicationStyles:'app/styles/app.scss'
