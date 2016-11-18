@@ -35,4 +35,21 @@ describe('TodoList' ,() =>{
 
 
    });
+
+    it('should render empty message fi no todos ',()=>{
+
+       var todos = [];
+
+       var todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>); 
+       var $el = $(ReactDOM.findDOMNode(todoList));
+
+       console.log("todoList container html:"+$el.html());
+       console.log("todoList container text:"+$el.text());
+
+       console.log("Length of todos is:"+todoList.props.todos.length);
+
+       expect($el.find('.container_message').length).toBe(1);
+       expect($el.find('.container_message').text()).toBe('Nothing to do');
+      
+   });
 });

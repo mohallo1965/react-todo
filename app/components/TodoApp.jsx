@@ -113,13 +113,26 @@ var TodoApp = React.createClass({
        
         return(
           <div>
-            TODO App 
+            
+            <h1 className="page-title">Todo App</h1>
 
-            <TodoSearch onSearch={this.handleSearch}/>
+            <div className="row">
 
-            <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+               <div className="column small-centered small-ll medium-6 large-5">
 
-            <AddTodo onAddTodo={this.handleAddTodo}/>
+                    <div className="container">
+                        <TodoSearch onSearch={this.handleSearch}/>
+                        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+
+                        <AddTodo onAddTodo={this.handleAddTodo}/>
+
+
+                    </div>
+
+               </div>
+            </div>
+
+            
 
           </div>
 
