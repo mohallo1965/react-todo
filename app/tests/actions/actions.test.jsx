@@ -46,7 +46,7 @@ describe('Actions',() =>{
         }
         var res = actions.toggleTodo(action.id);
         expect(res).toEqual(action);
-    })
+    });
     
 });
 
