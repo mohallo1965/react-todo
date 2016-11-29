@@ -29,5 +29,23 @@ greet(...personTwo);
 var names = ['Mike','Jill'];
 var finalName = ['Martin',...names];
 
+ var  node = {
+                 id:1,
+                 text:'hello there',
+                 completed:false
+};
 
+var newNode = {...node,text:'Martin'};
+
+
+var state = [ {id:1,text:'hi',completed:false,completedAt:undefined},
+             {id:2,text:'Hello',completed:true,completedAt:undefined}
+  ]
+
+console.log('state size is '+state.length);
+
+var finalState = [...state,
+                  {id:1,text:'hi',completed:false,completedAt:undefined}];
+
+console.log('state size is now'+finalState.length);
 
